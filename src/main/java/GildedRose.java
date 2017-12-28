@@ -101,5 +101,11 @@ public class GildedRose {
             }
         }
     }
+    /*
+     * minimal addition to ensure testability
+     */
+    public static void setItems(List<Item> items) {
+        GildedRose.items = items;
+    }
 
 }
