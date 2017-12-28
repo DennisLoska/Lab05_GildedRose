@@ -53,7 +53,8 @@ _Authors: Dennis Loska, Tony Dorfmeister, Ai Dong 05.12.2017_
 ```
 
 After more thinking:
-
+- changing .equals for better readability for example
+- more extracting like _increaseQuality(item);_ instead of _item.setQuality(item.getQuality() - 1);_ 
 ```java
     private static void updateQuality(Item item) {
         if ((item.getName().equals("Aged Brie"))) {
@@ -73,9 +74,56 @@ After more thinking:
 ```
 ##### 5. Running the test-class to enshure, that all the refactoring is working
 
+##### 6. Implementing the Strategy Design Pattern
+https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial
 
+- adding a new class ItemCategory, which will include most of the methods so the GuildedRose class is nice and clean.
+- adding children of ItemCategory for different Items, which will use the methods differently
 
+```java
+    public void updateQuality() {
+        for (Item item : items) {
+            ItemCategory category = categorize(item);
+            category.updateOneItem(item);
+        }
+    }
+```
 
+blablub
+
+```java
+    private ItemCategory categorize(Item item) {
+        if (item.getName().equals("Sulfuras, Hand of Ragnaros"))
+            return new Legendary();
+        if (item.getName().equals("Aged Brie"))
+            return new Cheese();
+        if (item.getName().equals("Backstage passes to a TAFKAL80ETC concert"))
+            return new BackstagePass();
+        return new ItemCategory();
+    }
+```
+
+blablub
+
+```java
+    //For all legendary items, which are treated differently in e.g. quality-calculation  
+    private class Legendary extends ItemCategory {
+        protected void updateExpired(Item item) {
+            if (item.getQuality() > 0) {
+                return;
+            }
+            decreaseQuality(item);
+        }
+        protected void updateSellIn(Item item) {
+            //do nothing!
+        }
+        protected void updateQuality(Item item) {
+            //do nothing!
+        }
+    }
+```
+
+blablub
 
 ## Add the new functionality
 

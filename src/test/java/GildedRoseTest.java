@@ -25,6 +25,7 @@ public class GildedRoseTest {
 		return data;
 	}
 
+	GildedRose guild;
 	String message;
 	String itemName;
 	int sellIn;
@@ -48,18 +49,19 @@ public class GildedRoseTest {
 	public void setUp() {
 		List<Item> items = new ArrayList<Item>();
 		items.add(item = new Item(itemName, sellIn, quality));
-		GildedRose.setItems(items);
+		guild = new GildedRose();
+		guild.setItems(items);
 	}
 
 	@Test
 	public void testQualityUpdate() {
-		GildedRose.updateQuality();
+		guild.updateQuality();
 		assertEquals(message + " Quality ", expectedQuality, item.getQuality());
 	}
 
 	@Test
 	public void testSellInUpdate() {
-		GildedRose.updateQuality();
+		guild.updateQuality();
 		assertEquals(message + " SellIn", expectedSellIn, item.getSellIn());
 	}
 
