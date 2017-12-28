@@ -16,7 +16,7 @@ By adding some test objects that have already been expired in sell date we were 
 
 ![codeCoverage_after-02](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-02.png)
 
-Our guess why the class coverage is only at 83% is that the main method of `GildedRose` is not tested. 
+Our guess why the class coverage is only at 83% is that the main method of `GildedRose` is not tested due to the fact that we are using our own items and not the core items the program has implemented. 
 
 ## Refactoring
 
