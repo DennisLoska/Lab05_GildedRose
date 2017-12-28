@@ -127,9 +127,11 @@ public class GildedRose {
         protected void updateQuality(Item item) {
             if (item.getSellIn() < 11) {
                 increaseQuality(item);
-            } else if (item.getSellIn() < 6) {
+            }
+            if (item.getSellIn() < 6) {
                 increaseQuality(item);
-            } else {
+            }
+            if (item.getSellIn() >= 11) {
                 decreaseQuality(item);
             }
         }
