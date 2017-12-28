@@ -4,7 +4,15 @@ _Authors: Dennis Loska, Tony Dorfmeister, Ai Dong 28.12.2017_
 
 ## Write Characterization Tests
 
-@Tony
+From the given specification we´e created test scenarios for each specification. This has been done by creating various test objects that will test the given specifications. As a tool for code coverage we have used EMMA for IntelliJ.
+
+After this we have increased the overall code coverage for class `GildedRose` from 33% to 83% as seen in the images below.
+
+![codeCoverage_before](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_before.png)
+
+![codeCoverage_after-01](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-01.png)
+
+
 
 ## Refactoring
 
@@ -90,7 +98,7 @@ After more thinking:
 - Adding children of ItemCategory for different Items, which will use the methods differently meaning overriding them with a more specific implementation for the item
 - This means different operations are executed depending on the item-category
 - Every item gets categorized and updated by _category.updateOneItem(item);_
- 
+
 ```java
     public void updateQuality() {
         for (Item item : items) {
