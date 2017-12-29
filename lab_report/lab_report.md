@@ -136,16 +136,18 @@ java
 - It is very easy now to implement very specific methods
 - Items can be very custom now without changing the Item class
 - Many if-statements are unnecessary now and got wiped out during the refactoring process
-- The class **ItemCategory** acts as a wrapper for the Item class
+- The class **ItemCategory** acts as a wrapper for the Item classes
 - It would be totally fine to put some, if not all of the methods from it into the Item-class, if that would be allowed
 
 ## Add the new functionality
 
 - to add a new functionality, the itemCategory needed to be implemented as Interface while every Category is an extension of item. 
 - with ItemCategory as interface, @override enables every category to implement their own updateQuality() and updateSellIn()
-- even though item is public, as we assume a development wth persistence frameworks, item would work best as a "base class"
+- even though item is public, as we assume a development with persistence frameworks, item would work best as a "base class"
 - That way, the class Conjured could have its own implementation
-- Additional checks in constructor and updateQuality() guarantees the values are ok.
+- Additional checks in constructor and updateQuality() guarantees the values are valid.
+- Additional checks in UpdateQuality() are made to check whether the item already exist in the list.
+- For readability ternary operation are used as right hand sided arguments. 
 
      public class Conjured extends Item implements ItemCategory {
 	    
