@@ -5,7 +5,7 @@ import java.util.List;
 public class GildedRose {
 
     private static List<Item> items = null;
-
+  
     /**
      * @param args array of Strings
      */
@@ -14,23 +14,45 @@ public class GildedRose {
         System.out.println("OMGHAI!");
         GildedRose guild = new GildedRose();
         items = new ArrayList<Item>();
-        items.add(new OtherItem("+5 Dexterity Vest", 10, 20));
-        items.add(new Cheese("Aged Brie", 2, 0));
-        items.add(new OtherItem("Elixir of the Mongoose", 5, 7));
-        items.add(new Legendary("Sulfuras, Hand of Ragnaros", 0, 80));
-        items.add(new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 15, 20));
-        items.add(new Conjured("Conjured Mana Cake", 3, 6));
-
+        items.add(new Item("+5 Dexterity Vest", 10, 20));
+        items.add(new Item("Aged Brie", 2, 0));
+        items.add(new Item("Elixir of the Mongoose", 5, 7));
+        items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+        items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
+        items.add(new Item("Conjured Mana Cake", 3, 6));
+     
         guild.updateQuality();
     }
 
     public void updateQuality() {
+    	Item temp;
+    	
+    	
         for (Item item : items) {
-           ((ItemCategory)item).updateSellIn();
+        	
+        	if(!(item instanceof ItemCategory)) {
+        		temp = categorize(item);
+        		items.set(items.indexOf(item),temp);  
+        		((ItemCategory)temp).updateSellin();
+                ((ItemCategory)temp).updateQuality();
+        	}
+        	
+        	else {
+  
+        	((ItemCategory)item).updateSellin();
            ((ItemCategory)item).updateQuality();
-           if (item.getQuality()<0) item.setQuality(0);
+        	}
         }
     }
+    
+    public static Item categorize(Item i){
+         Item item = i.getName().contains("Aged Brie")?  new Cheese(i.getName(), i.getSellIn(), i.getQuality()):
+                        i.getName().contains("Sulfuras, Hand of Ragnaros")?  new Legendary(i.getName(), i.getSellIn(), i.getQuality()):
+                            i.getName().contains("Backstage passes to a TAFKAL80ETC concert")?  new BackstagePass(i.getName(), i.getSellIn(), i.getQuality()):
+                                i.getName().contains("Conjured")?  new Conjured(i.getName(), i.getSellIn(), i.getQuality()):
+                                  new OtherItem(i.getName(), i.getSellIn(), i.getQuality());
+             return item;
+        }
 
 
     /*

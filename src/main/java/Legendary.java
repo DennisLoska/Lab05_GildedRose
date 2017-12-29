@@ -1,26 +1,22 @@
 
-public class Legendary implements ItemCategory extends Item {
+public class Legendary  extends Item implements ItemCategory{
 	
-	    public String name;
-		public int sellIn; 
-	    public int quality; 
+	  
 	    
 	    public Legendary (String name, int sellIn, int quality) {
-			this.setName(name);
-			this.setSellIn(sellIn);
-			this.setQuality(quality);
+	    	super(name,sellIn,quality);
+			
 		}
 	    
-	    protected void updateSellIn() {
-	    	this.sellIn -=1;
-	        }   
+	  
 		
-	
-   	protected void updateExpired() {
+	@Override
+   	public void updateSellin() {
 		//do nothing
       }
-
-      protected void updateQuality() {
+	
+      @Override
+      public void updateQuality() {
     	//do nothing
       }
 

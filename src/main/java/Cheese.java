@@ -1,21 +1,23 @@
-    public class Cheese implements ItemCategory extends Item  {
+    public class Cheese extends Item implements ItemCategory   {
     	
-    	  public String name;
-    		public int sellIn; 
-    	    public int quality; 
+    	
     	    
     	    public Cheese(String name, int sellIn, int quality) {
-    			this.setName(name);
-    			this.setSellIn(sellIn);
-    			this.quality = quality >50? this.setQuality(50): this.setQuality(quality);
+    	    	super(name,sellIn,quality);
+    		
+    			if (quality >50)this.setQuality(50);
+    			if (quality<0) this.setQuality(0);
     		}
     	    
-       protected void updateSellIn() {
+     @Override
+       public void updateSellin() {
     	    	this.sellIn -=1;
     	        }   	
-  
-        protected void updateQuality() {
+     
+     @Override
+        public void updateQuality() {
         	this.quality +=1;
+        	if (quality >50)this.setQuality(50);
+        	if (quality<0) this.setQuality(0);
         }
     }
-v

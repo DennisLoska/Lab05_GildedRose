@@ -41,11 +41,25 @@ Our guess why the class coverage is only at 83% is that the main method of `Gild
 - 3 separate methods instead of a huge mess
 
 ```java
-    private static void updateOneItem(Item item) {
-        updateQuality(item);
-        updateSellIn(item);
-        if (item.getSellIn() < 0) {
-            updateExpired(item);
+
+    public void updateQuality() {
+    	Item temp;
+    	
+    	
+        for (Item item : items) {
+        	
+        	if(!(item instanceof ItemCategory)) {
+        		temp = categorize(item);
+        		items.set(items.indexOf(item),temp);  
+        		((ItemCategory)temp).updateSellin();
+                ((ItemCategory)temp).updateQuality();
+        	}
+        	
+        	else {
+  
+        	((ItemCategory)item).updateSellin();
+           ((ItemCategory)item).updateQuality();
+        	}
         }
     }
 ```
@@ -56,25 +70,13 @@ Our guess why the class coverage is only at 83% is that the main method of `Gild
 - Switching conditions and inverting if-statements
 - If-statements are sorted by the name-conditions for now
 
-```java
-    private static void updateQuality(Item item) {
-        if ((item.getName().equals("Aged Brie"))
-                || item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
-            UpdateBrieOrConcert(item);
-        } else if (item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-            return;
-        }
-        if (item.getQuality() > 0) {
-            item.setQuality(item.getQuality() - 1);
-        }
-    }
-```
 
 After more thinking:
 
 - Changing .equals for better readability for example
 - More extracting like _increaseQuality(item);_ instead of _item.setQuality(item.getQuality() - 1);_ 
-```java
+```
+java
     private static void updateQuality(Item item) {
         if ((item.getName().equals("Aged Brie"))) {
             increaseQuality(item);
@@ -91,63 +93,42 @@ After more thinking:
         }
     }
 ```
-##### 5. Running the test-class to enshure, that all the refactoring is working
+##### 5. Running the test-class to ensure, that all the refactoring is working
 
 - That step has been done many times every now and then
 - Tests were green most of the time until implementing the strategy pattern
 
 ##### 6. Implementing the Strategy Design Pattern
 
-- Adding a new class ItemCategory, which will include most of the methods so the GuildedRose class is nice and clean.
-- Adding children of ItemCategory for different Items, which will use the methods differently meaning overriding them with a more specific implementation for the item
+- Adding a interface ItemCategory, which will include most of the methods so the GuildedRose class is nice and clean.
+- Adding children of Item for different Items, which will use the methods differently meaning overriding them with a more specific implementation for the item
 - This means different operations are executed depending on the item-category
-- Every item gets categorized and updated by _category.updateOneItem(item);_
+- A more specific item is handled in it's respective category class
+- E.g. a **otherItem** item aka a normal item
+- The necessary methods are overridden
 
-```java
-    public void updateQuality() {
-        for (Item item : items) {
-            ItemCategory category = categorize(item);
-            category.updateOneItem(item);
-        }
-    }
-```
+	    @Override
+      public void updateQuality() {
+    	    this.quality = this.sellIn<=0? this.quality -= 2: (this.quality - 1);
+    		if (quality >50)this.setQuality(50);
+        	if (quality<0) this.setQuality(0);
+      }
+
 
 - The category is determined by checking the item's name
 - If there is no match the default _ItemCategory_ will be created
 
-
 ```java
-    private ItemCategory categorize(Item item) {
-        if (item.getName().equals("Sulfuras, Hand of Ragnaros"))
-            return new Legendary();
-        if (item.getName().equals("Aged Brie"))
-            return new Cheese();
-        if (item.getName().equals("Backstage passes to a TAFKAL80ETC concert"))
-            return new BackstagePass();
-        return new ItemCategory();
-    }
-```
+    public static Item categorize(Item i){
+         Item item = i.getName().contains("Aged Brie")?  new Cheese(i.getName(), i.getSellIn(), i.getQuality()):
+                        i.getName().contains("Sulfuras, Hand of Ragnaros")?  new Legendary(i.getName(), i.getSellIn(), i.getQuality()):
+                            i.getName().contains("Backstage passes to a TAFKAL80ETC concert")?  new BackstagePass(i.getName(), i.getSellIn(), i.getQuality()):
+                                i.getName().contains("Conjured")?  new Conjured(i.getName(), i.getSellIn(), i.getQuality()):
+                                  new OtherItem(i.getName(), i.getSellIn(), i.getQuality());
+             return item;
+        }
 
-- A more specific item is handled in it's respective category class
-- E.g. a **legendary** item
-- The necessary methods are overridden
-
-```java
-    //For all legendary items, which are treated differently in e.g. quality-calculation  
-    private class Legendary extends ItemCategory {
-        protected void updateExpired(Item item) {
-            if (item.getQuality() > 0) {
-                return;
-            }
-            decreaseQuality(item);
-        }
-        protected void updateSellIn(Item item) {
-            //do nothing!
-        }
-        protected void updateQuality(Item item) {
-            //do nothing!
-        }
-    }
+    
 ```
 
 ##### 7. Conclusion
@@ -160,4 +141,32 @@ After more thinking:
 
 ## Add the new functionality
 
-@Ai & Tony
+- to add a new functionality, the itemCategory needed to be implemented as Interface while every Category is an extension of item. 
+- with ItemCategory as interface, @override enables every category to implement their own updateQuality() and updateSellIn()
+- even though item is public, as we assume a development wth persistence frameworks, item would work best as a "base class"
+- That way, the class Conjured could have its own implementation
+- Additional checks in constructor and updateQuality() guarantees the values are ok.
+
+     public class Conjured extends Item implements ItemCategory {
+	    
+	    public Conjured(String name, int sellIn, int quality) {
+	    	super(name,sellIn,quality);
+		
+			if (quality >50)this.setQuality(50);
+			if (quality<0) this.setQuality(0);
+		}
+	    
+	    @Override
+	    public void updateSellin() {
+	    	this.sellIn -=1;
+	        }   
+	    
+	    @Override
+        public void updateQuality() {
+        	this.quality = this.sellIn <= 0? this.quality -=4 : this.quality - 2;
+        	if (quality >50)this.setQuality(50);
+        	if (quality<0) this.setQuality(0);
+        }
+    }
+    
+- As the sell-in value changes first before the quality value, these additional checks are necessary. 

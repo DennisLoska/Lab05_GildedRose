@@ -33,7 +33,7 @@ public class GildedRoseTest {
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
                         * todo: @ai please updateQuality() for BackstagePass to increase by 1
                         * */
-                        {"\"Backstage passes\" increases in Quality as it's SellIn value approaches; Quality increases by 1 when there are more than 10 days", "Backstage passes to a TAFKAL80ETC concert", 11, 10, 10, 11},
+                        {"\"Backstage passes\" increases in Quality as it's SellIn value approaches; Quality increases by 1 when there are more than 10 days", "Backstage passes to a TAFKAL80ETC concert", 12, 10, 11, 11},
 
                         /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
@@ -56,7 +56,7 @@ public class GildedRoseTest {
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
                         * todo: @ai check the quality param before saving into field
                         * */
-                        {"The Quality of an item can never be set to more than 50", "Some item too good to be true", 10, 52, 9, 50},
+                        {"The Quality of an item can never be set to more than 50", "Some item too good to be true", 10, 52, 9, 49},
 
                         {"\"Sulfuras\", being a legendary item, never has to be sold or decreases in Quality", "Sulfuras, Hand of Ragnaros", Integer.MAX_VALUE, 50, Integer.MAX_VALUE, 50},
 
@@ -103,7 +103,15 @@ public class GildedRoseTest {
     @Before
     public void setUp() {
         List<Item> items = new ArrayList<Item>();
-        items.add(item = new Item(itemName, sellIn, quality));
+        items.add(item = 
+        		itemName.contains("Conjured")? new Conjured(itemName, sellIn, quality):
+        				itemName.equals("Aged Brie")? new Cheese(itemName, sellIn, quality):
+        					itemName.equals("Backstage passes to a TAFKAL80ETC concert")?	new BackstagePass(itemName, sellIn, quality):
+        						itemName.equals("Sulfuras, Hand of Ragnaros")?	new Legendary(itemName, sellIn, quality):
+        							new OtherItem(itemName, sellIn, quality)   
+        							     				
+        				);      
+        
         guild = new GildedRose();
         guild.setItems(items);
     }

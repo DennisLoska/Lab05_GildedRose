@@ -1,21 +1,23 @@
-  public class Conjured extends item implements ItemCategory {
+  public class Conjured extends Item implements ItemCategory {
 	   
-	    public String name;
-		public int sellIn; 
-	    public int quality; 
 	    
 	    public Conjured(String name, int sellIn, int quality) {
-			this.setName(name);
-			this.setSellIn(sellIn);
-			this.quality = quality >50? this.setQuality(50): this.setQuality(quality);
+	    	super(name,sellIn,quality);
+		
+			if (quality >50)this.setQuality(50);
+			if (quality<0) this.setQuality(0);
 		}
-	  
-	    protected void updateSellIn() {
+	    
+	    @Override
+	    public void updateSellin() {
 	    	this.sellIn -=1;
 	        }   
-		        
-        protected void updateQuality() {
-        	this.quality = this.sellIn <= 0? this.quality -=4 : this.quality -=2;
+	    
+	    @Override
+        public void updateQuality() {
+        	this.quality = this.sellIn <= 0? this.quality -=4 : this.quality - 2;
+        	if (quality >50)this.setQuality(50);
+        	if (quality<0) this.setQuality(0);
         }
     }
     
