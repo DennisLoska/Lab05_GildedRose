@@ -8,13 +8,13 @@ From the given specification we´e created test scenarios for each specification
 
 After this we have increased the overall code coverage for class `GildedRose` from 33% to 83% as seen in the images below. (Unfortunately we didn´t know how to get rid of the extra packages in the images)
 
-![codeCoverage_before](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_before.png)
+![codeCoverage_before](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_before.png)
 
-![codeCoverage_after-01](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-01.png)
+![codeCoverage_after-01](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_after-01.png)
 
 By adding some test objects that have already been expired in sell date we were able to bump up the method percentage to 95%. 
 
-![codeCoverage_after-02](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-02.png)
+![codeCoverage_after-02](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_after-02.png)
 
 Our guess why the class coverage is only at 83% is that the main method of `GildedRose` is not tested due to the fact that we are using our own items and not the core items the program has implemented. 
 
