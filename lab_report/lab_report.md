@@ -8,13 +8,13 @@ From the given specification we´e created test scenarios for each specification
 
 After this we have increased the overall code coverage for class `GildedRose` from 33% to 83% as seen in the images below. (Unfortunately we didn´t know how to get rid of the extra packages in the images)
 
-![codeCoverage_before](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_before.png)
+![codeCoverage_before](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-01.png)
 
-![codeCoverage_after-01](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_after-01.png)
+![codeCoverage_after-01](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_after-02.png)
 
 By adding some test objects that have already been expired in sell date we were able to bump up the method percentage to 95%. 
 
-![codeCoverage_after-02](https://github.com/DennisLoska/Lab05_GildedRose/blob/master/lab_report/images/codeCoverage_after-02.png)
+![codeCoverage_after-02](/Users/tweak/CloudStation/IMI/03_Semester/Informatik-03/labs/Lab05_GildedRose/lab_report/images/codeCoverage_before.png)
 
 Our guess why the class coverage is only at 83% is that the main method of `GildedRose` is not tested due to the fact that we are using our own items and not the core items the program has implemented. 
 
@@ -107,7 +107,7 @@ java
 - E.g. a **otherItem** item aka a normal item
 - The necessary methods are overridden
 
-	    @Override
+      @Override
       public void updateQuality() {
     	    this.quality = this.sellIn<=0? this.quality -= 2: (this.quality - 1);
     		if (quality >50)this.setQuality(50);
@@ -150,25 +150,33 @@ java
 - For readability ternary operation are used as right hand sided arguments. 
 
      public class Conjured extends Item implements ItemCategory {
-	    
-	    public Conjured(String name, int sellIn, int quality) {
-	    	super(name,sellIn,quality);
-		
-			if (quality >50)this.setQuality(50);
-			if (quality<0) this.setQuality(0);
-		}
-	    
-	    @Override
-	    public void updateSellin() {
-	    	this.sellIn -=1;
-	        }   
-	    
-	    @Override
-        public void updateQuality() {
-        	this.quality = this.sellIn <= 0? this.quality -=4 : this.quality - 2;
-        	if (quality >50)this.setQuality(50);
-        	if (quality<0) this.setQuality(0);
-        }
-    }
-    
+     ​    
+     ```java
+     public Conjured(String name, int sellIn, int quality) {
+     	super(name,sellIn,quality);
+
+     	if (quality >50)this.setQuality(50);
+     	if (quality<0) this.setQuality(0);
+     }
+
+     @Override
+     public void updateSellin() {
+     	this.sellIn -=1;
+         }   
+
+     @Override
+     ```
+```Java
+public void updateQuality() {
+
+   	this.quality = this.sellIn <= 0? this.quality -=4 : this.quality - 2;
+
+   	if (quality >50)this.setQuality(50);
+
+   	if (quality<0) this.setQuality(0);
+
+   }
+
+```
+
 - As the sell-in value changes first before the quality value, these additional checks are necessary. 

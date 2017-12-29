@@ -31,19 +31,19 @@ public class GildedRoseTest {
 
                                                 /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
-                        * todo: @ai please updateQuality() for BackstagePass to increase by 1
+                        *
                         * */
                         {"\"Backstage passes\" increases in Quality as it's SellIn value approaches; Quality increases by 1 when there are more than 10 days", "Backstage passes to a TAFKAL80ETC concert", 12, 10, 11, 11},
 
                         /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
-                        * todo: @ai please updateQuality() for BackstagePass to increase by 2
+                        *
                         * */
                         {"\"Backstage passes\" increases in Quality as it's SellIn value approaches; Quality increases by 2 when there are 10 days or less", "Backstage passes to a TAFKAL80ETC concert", 10, 10, 9, 12},
 
                                                 /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
-                        * todo: @ai please updateQuality() for BackstagePass to increase by 3
+                        *
                         * */
                         {"\"Backstage passes\" increases in Quality as it's SellIn value approaches; Quality increases by 3 when there are 5 days or less", "Backstage passes to a TAFKAL80ETC concert", 5, 10, 4, 13},
 
@@ -54,7 +54,7 @@ public class GildedRoseTest {
 
                         /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
-                        * todo: @ai check the quality param before saving into field
+                        *
                         * */
                         {"The Quality of an item can never be set to more than 50", "Some item too good to be true", 10, 52, 9, 49},
 
@@ -62,7 +62,7 @@ public class GildedRoseTest {
 
                         /*
                         * The following Test Case is going to fail because this functionality hasn´ been implemented yet
-                        * todo: @ai extend new class "Conjured" from "ItemCategory"
+                        *
                         * */
                         {"\"Conjured\" items degrade in Quality twice as fast as normal items", "Conjured Mana Cake", 10, 50, 9, 48},
 
